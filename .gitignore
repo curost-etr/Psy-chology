@@ -1,0 +1,21 @@
+.env
+.env.*
+!.env.example
+
+# Local secrets and credentials
+.envrc
+*.pem
+*.key
+*.p12
+*.pfx
+.aws/
+.ssh/
+secrets/
+credentials/
+
+# Browser profiles contain cookies, login databases, and browsing history
+report-assets/chrome-profile*/
+
+node_modules/
+server-output.log
+server-error.log

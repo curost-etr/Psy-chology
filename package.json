@@ -1,0 +1,14 @@
+{
+  "name": "anxiety-awareness-system",
+  "version": "1.0.0",
+  "description": "大学生期末焦虑智能察觉与个性化疏导系统",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "train": "node training/train.cjs && node training/verify.cjs && node training/sync.cjs",
+    "test:ai": "node training/verify.cjs"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

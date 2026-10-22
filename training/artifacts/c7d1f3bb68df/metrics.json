@@ -1,0 +1,867 @@
+{
+  "version": "c7d1f3bb68df",
+  "dataHash": "c7d1f3bb68df79fdd57eff23aec4b2dca243222974759617e7250048676cacb5",
+  "runtime": "v24.19.0",
+  "platform": "win32",
+  "counts": {
+    "train": 140,
+    "dev": 35,
+    "test": 35
+  },
+  "provenance": [
+    "assistant_authored"
+  ],
+  "limitation": "Prototype; single-author synthetic data unless externally supplied; no clinical validation.",
+  "candidates": [
+    {
+      "parameters": {
+        "minDf": 1,
+        "l2": 0.0003,
+        "epochs": 400,
+        "learningRate": 3
+      },
+      "devMacroF1": 0.9383116883116883
+    },
+    {
+      "parameters": {
+        "minDf": 1,
+        "l2": 0.003,
+        "epochs": 400,
+        "learningRate": 3
+      },
+      "devMacroF1": 0.9383116883116883
+    },
+    {
+      "parameters": {
+        "minDf": 2,
+        "l2": 0.0003,
+        "epochs": 400,
+        "learningRate": 3
+      },
+      "devMacroF1": 0.9383116883116883
+    },
+    {
+      "parameters": {
+        "minDf": 2,
+        "l2": 0.003,
+        "epochs": 400,
+        "learningRate": 3
+      },
+      "devMacroF1": 0.9711399711399712
+    }
+  ],
+  "selectedParameters": {
+    "minDf": 2,
+    "l2": 0.003,
+    "epochs": 400,
+    "learningRate": 3
+  },
+  "rejection": {
+    "threshold": 0.35,
+    "margin": 0.05
+  },
+  "dev": {
+    "count": 35,
+    "accuracy": 0.9714285714285714,
+    "macroF1": 0.9711399711399712,
+    "perClass": [
+      {
+        "label": "exam_result_fear",
+        "support": 5,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "label": "task_start_block",
+        "support": 5,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "label": "sleep_burnout",
+        "support": 5,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "label": "self_blame",
+        "support": 5,
+        "precision": 0.8333333333333334,
+        "recall": 1,
+        "f1": 0.9090909090909091
+      },
+      {
+        "label": "future_uncertainty",
+        "support": 5,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "label": "relationship_pressure",
+        "support": 5,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "label": "other",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.8,
+        "f1": 0.888888888888889
+      }
+    ],
+    "confusion": [
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        5,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        4
+      ]
+    ],
+    "coverage": 0.6571428571428571,
+    "acceptedAccuracy": 1,
+    "otherFalseAcceptance": 0,
+    "errors": [
+      {
+        "id": "other-dev-4",
+        "text": "我现在没有什么烦恼",
+        "expected": "other",
+        "predicted": "self_blame"
+      }
+    ]
+  },
+  "test": {
+    "count": 35,
+    "accuracy": 0.9142857142857143,
+    "macroF1": 0.9137085137085138,
+    "perClass": [
+      {
+        "label": "exam_result_fear",
+        "support": 5,
+        "precision": 0.8333333333333334,
+        "recall": 1,
+        "f1": 0.9090909090909091
+      },
+      {
+        "label": "task_start_block",
+        "support": 5,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "label": "sleep_burnout",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.8,
+        "f1": 0.888888888888889
+      },
+      {
+        "label": "self_blame",
+        "support": 5,
+        "precision": 1,
+        "recall": 1,
+        "f1": 1
+      },
+      {
+        "label": "future_uncertainty",
+        "support": 5,
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1": 0.8000000000000002
+      },
+      {
+        "label": "relationship_pressure",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.8,
+        "f1": 0.888888888888889
+      },
+      {
+        "label": "other",
+        "support": 5,
+        "precision": 0.8333333333333334,
+        "recall": 1,
+        "f1": 0.9090909090909091
+      }
+    ],
+    "confusion": [
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        5,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0,
+        0,
+        0,
+        5,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        0,
+        0,
+        0,
+        4,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        1,
+        4,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5
+      ]
+    ],
+    "coverage": 0.6285714285714286,
+    "acceptedAccuracy": 0.9545454545454546,
+    "otherFalseAcceptance": 0,
+    "errors": [
+      {
+        "id": "sleep_burnout-test-5",
+        "text": "我只想好好睡一觉恢复精神",
+        "expected": "sleep_burnout",
+        "predicted": "other"
+      },
+      {
+        "id": "future_uncertainty-test-4",
+        "text": "到底要不要考公让我非常纠结",
+        "expected": "future_uncertainty",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "relationship_pressure-test-5",
+        "text": "我不知道怎么拒绝同学提出的要求",
+        "expected": "relationship_pressure",
+        "predicted": "future_uncertainty"
+      }
+    ]
+  },
+  "keywordBaseline": {
+    "count": 35,
+    "accuracy": 0.5714285714285714,
+    "macroF1": 0.6234693877551021,
+    "perClass": [
+      {
+        "label": "exam_result_fear",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.6,
+        "f1": 0.7499999999999999
+      },
+      {
+        "label": "task_start_block",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.4,
+        "f1": 0.5714285714285715
+      },
+      {
+        "label": "sleep_burnout",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.4,
+        "f1": 0.5714285714285715
+      },
+      {
+        "label": "self_blame",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.4,
+        "f1": 0.5714285714285715
+      },
+      {
+        "label": "future_uncertainty",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.6,
+        "f1": 0.7499999999999999
+      },
+      {
+        "label": "relationship_pressure",
+        "support": 5,
+        "precision": 1,
+        "recall": 0.6,
+        "f1": 0.7499999999999999
+      },
+      {
+        "label": "other",
+        "support": 5,
+        "precision": 0.25,
+        "recall": 1,
+        "f1": 0.4
+      }
+    ],
+    "confusion": [
+      [
+        3,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2
+      ],
+      [
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        3
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5
+      ]
+    ],
+    "coverage": 0.42857142857142855,
+    "acceptedAccuracy": 1,
+    "otherFalseAcceptance": 0,
+    "errors": [
+      {
+        "id": "exam_result_fear-test-1",
+        "text": "我最怕这次期末没及格",
+        "expected": "exam_result_fear",
+        "predicted": "other"
+      },
+      {
+        "id": "exam_result_fear-test-2",
+        "text": "分数一出来我就不敢点开",
+        "expected": "exam_result_fear",
+        "predicted": "other"
+      },
+      {
+        "id": "task_start_block-test-2",
+        "text": "复习内容堆在一起不知道怎么安排第一步",
+        "expected": "task_start_block",
+        "predicted": "other"
+      },
+      {
+        "id": "task_start_block-test-3",
+        "text": "论文文档一直空着我迟迟不肯动笔",
+        "expected": "task_start_block",
+        "predicted": "other"
+      },
+      {
+        "id": "task_start_block-test-4",
+        "text": "我想学习但每次都拖到明天",
+        "expected": "task_start_block",
+        "predicted": "other"
+      },
+      {
+        "id": "sleep_burnout-test-2",
+        "text": "睡眠不足让我整个人都很疲倦",
+        "expected": "sleep_burnout",
+        "predicted": "other"
+      },
+      {
+        "id": "sleep_burnout-test-3",
+        "text": "我已经熬了三个通宵身体受不了了",
+        "expected": "sleep_burnout",
+        "predicted": "other"
+      },
+      {
+        "id": "sleep_burnout-test-5",
+        "text": "我只想好好睡一觉恢复精神",
+        "expected": "sleep_burnout",
+        "predicted": "other"
+      },
+      {
+        "id": "self_blame-test-2",
+        "text": "总在想我怎么这么差劲",
+        "expected": "self_blame",
+        "predicted": "other"
+      },
+      {
+        "id": "self_blame-test-3",
+        "text": "我觉得自己的努力毫无价值",
+        "expected": "self_blame",
+        "predicted": "other"
+      },
+      {
+        "id": "self_blame-test-5",
+        "text": "我总是把失败都归咎于自己没能力",
+        "expected": "self_blame",
+        "predicted": "other"
+      },
+      {
+        "id": "future_uncertainty-test-2",
+        "text": "临近毕业我不知道自己想去哪",
+        "expected": "future_uncertainty",
+        "predicted": "other"
+      },
+      {
+        "id": "future_uncertainty-test-4",
+        "text": "到底要不要考公让我非常纠结",
+        "expected": "future_uncertainty",
+        "predicted": "other"
+      },
+      {
+        "id": "relationship_pressure-test-1",
+        "text": "妈妈总说别人家的孩子更优秀",
+        "expected": "relationship_pressure",
+        "predicted": "other"
+      },
+      {
+        "id": "relationship_pressure-test-2",
+        "text": "宿舍里的争吵让我心情很差",
+        "expected": "relationship_pressure",
+        "predicted": "other"
+      }
+    ]
+  },
+  "majorityBaseline": {
+    "count": 35,
+    "accuracy": 0.14285714285714285,
+    "macroF1": 0.03571428571428571,
+    "perClass": [
+      {
+        "label": "exam_result_fear",
+        "support": 5,
+        "precision": 0.14285714285714285,
+        "recall": 1,
+        "f1": 0.25
+      },
+      {
+        "label": "task_start_block",
+        "support": 5,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "label": "sleep_burnout",
+        "support": 5,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "label": "self_blame",
+        "support": 5,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "label": "future_uncertainty",
+        "support": 5,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "label": "relationship_pressure",
+        "support": 5,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      },
+      {
+        "label": "other",
+        "support": 5,
+        "precision": 0,
+        "recall": 0,
+        "f1": 0
+      }
+    ],
+    "confusion": [
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ],
+    "coverage": 1,
+    "acceptedAccuracy": 0.14285714285714285,
+    "otherFalseAcceptance": 1,
+    "errors": [
+      {
+        "id": "task_start_block-test-1",
+        "text": "我把任务表看了十遍还是没开始",
+        "expected": "task_start_block",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "task_start_block-test-2",
+        "text": "复习内容堆在一起不知道怎么安排第一步",
+        "expected": "task_start_block",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "task_start_block-test-3",
+        "text": "论文文档一直空着我迟迟不肯动笔",
+        "expected": "task_start_block",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "task_start_block-test-4",
+        "text": "我想学习但每次都拖到明天",
+        "expected": "task_start_block",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "task_start_block-test-5",
+        "text": "任务一多就不知道从哪项下手",
+        "expected": "task_start_block",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "sleep_burnout-test-1",
+        "text": "连着几晚失眠我白天脑子都不转了",
+        "expected": "sleep_burnout",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "sleep_burnout-test-2",
+        "text": "睡眠不足让我整个人都很疲倦",
+        "expected": "sleep_burnout",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "sleep_burnout-test-3",
+        "text": "我已经熬了三个通宵身体受不了了",
+        "expected": "sleep_burnout",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "sleep_burnout-test-4",
+        "text": "凌晨还醒着现在头疼心慌",
+        "expected": "sleep_burnout",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "sleep_burnout-test-5",
+        "text": "我只想好好睡一觉恢复精神",
+        "expected": "sleep_burnout",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "self_blame-test-1",
+        "text": "我一遇到挫折就骂自己是废物",
+        "expected": "self_blame",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "self_blame-test-2",
+        "text": "总在想我怎么这么差劲",
+        "expected": "self_blame",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "self_blame-test-3",
+        "text": "我觉得自己的努力毫无价值",
+        "expected": "self_blame",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "self_blame-test-4",
+        "text": "一点错误都会让我讨厌自己",
+        "expected": "self_blame",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "self_blame-test-5",
+        "text": "我总是把失败都归咎于自己没能力",
+        "expected": "self_blame",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "future_uncertainty-test-1",
+        "text": "找工作还是继续升学我选不出来",
+        "expected": "future_uncertainty",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "future_uncertainty-test-2",
+        "text": "临近毕业我不知道自己想去哪",
+        "expected": "future_uncertainty",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "future_uncertainty-test-3",
+        "text": "我对职业选择和未来都没有把握",
+        "expected": "future_uncertainty",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "future_uncertainty-test-4",
+        "text": "到底要不要考公让我非常纠结",
+        "expected": "future_uncertainty",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "future_uncertainty-test-5",
+        "text": "实习结束之后的人生方向在哪里",
+        "expected": "future_uncertainty",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "relationship_pressure-test-1",
+        "text": "妈妈总说别人家的孩子更优秀",
+        "expected": "relationship_pressure",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "relationship_pressure-test-2",
+        "text": "宿舍里的争吵让我心情很差",
+        "expected": "relationship_pressure",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "relationship_pressure-test-3",
+        "text": "我受不了家里人一直催我",
+        "expected": "relationship_pressure",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "relationship_pressure-test-4",
+        "text": "朋友对我的评价让我压力越来越大",
+        "expected": "relationship_pressure",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "relationship_pressure-test-5",
+        "text": "我不知道怎么拒绝同学提出的要求",
+        "expected": "relationship_pressure",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "other-test-1",
+        "text": "你好我只是来打个招呼",
+        "expected": "other",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "other-test-2",
+        "text": "我想问今天星期几",
+        "expected": "other",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "other-test-3",
+        "text": "最近睡得香吃得好一切顺利",
+        "expected": "other",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "other-test-4",
+        "text": "考完试我很开心准备出去玩",
+        "expected": "other",
+        "predicted": "exam_result_fear"
+      },
+      {
+        "id": "other-test-5",
+        "text": "帮我解释一下这道编程题",
+        "expected": "other",
+        "predicted": "exam_result_fear"
+      }
+    ]
+  },
+  "inferenceMs": 0.01005849999999998,
+  "targetChecks": {
+    "macroF1AtLeast080": true,
+    "improvesKeywordBy005": true,
+    "allClassRecallAtLeast070": true
+  }
+}

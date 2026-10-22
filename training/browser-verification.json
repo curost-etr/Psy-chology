@@ -1,0 +1,14 @@
+{
+  "browser": "154.0.8037.100",
+  "checks": [
+    "Netlify complete frontend uses trained model",
+    "out-of-domain input asks for clarification",
+    "risk support has priority",
+    "mobile frontend fits viewport",
+    "missing model falls back to keyword replies",
+    "existing chat uses trained model when API is unavailable",
+    "no uncaught page errors"
+  ],
+  "passed": 7,
+  "externalNetworkBlocked": true
+}

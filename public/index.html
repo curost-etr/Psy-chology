@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindBell | AI 心理陪伴与疏导平台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">MindBell</p>
+          <h1>更安静、更有策略的 AI 疏导页面</h1>
+          <p class="subtitle">
+            先做轻量信息收集，再进入对话疏导。系统会根据压力来源、情绪强度、场景类型和支持状态，
+            生成更快、更有针对性的陪伴与建议。
+          </p>
+          <div class="hero-pills">
+            <span>先收集后对话</span>
+            <span>分场景策略</span>
+            <span>高压风险识别</span>
+          </div>
+        </div>
+        <div class="hero-card">
+          <p class="hero-card-label">使用方式</p>
+          <div class="hero-metrics">
+            <article class="hero-metric">
+              <strong>双轨分析</strong>
+              <span>量表画像 + 实时对话</span>
+            </article>
+            <article class="hero-metric">
+              <strong>静态可部署</strong>
+              <span>GitHub Pages 直接可用</span>
+            </article>
+            <article class="hero-metric">
+              <strong>趋势摘要</strong>
+              <span>对话会自动汇总为图标看板</span>
+            </article>
+          </div>
+          <ol>
+            <li>先完成 30 秒初始信息收集</li>
+            <li>系统建立你的对话画像</li>
+            <li>进入更有针对性的疏导聊天</li>
+          </ol>
+        </div>
+      </header>
+
+      <main class="main-grid">
+        <section class="content-stack">
+          <section class="panel onboarding-panel">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Step 1</p>
+                <h2>快速信息收集</h2>
+              </div>
+              <p>只收集影响回复策略的最小信息，降低输入负担，同时提高后续命中率。</p>
+            </div>
+
+            <form id="intake-form" class="intake-form">
+              <div class="intake-grid">
+                <label class="field">
+                  <span>你现在最主要的困扰</span>
+                  <select id="intake-concern" name="concern" required>
+                    <option value="exam">考试与成绩焦虑</option>
+                    <option value="task">任务太多，无法启动</option>
+                    <option value="sleep">失眠、疲惫、身体状态差</option>
+                    <option value="future">对未来、升学或就业不确定</option>
+                    <option value="relationship">和家人、同学、老师关系有压力</option>
+                    <option value="mixed">多种压力混在一起</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span>此刻情绪强度</span>
+                  <select id="intake-intensity" name="intensity" required>
+                    <option value="low">低，能正常运转</option>
+                    <option value="medium" selected>中，明显影响状态</option>
+                    <option value="high">高，已经快撑不住</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span>你更希望 AI 怎么帮你</span>
+                  <select id="intake-goal" name="goal" required>
+                    <option value="comfort">先安抚和陪伴</option>
+                    <option value="plan">先帮我拆解计划</option>
+                    <option value="clarify">先帮我理清问题</option>
+                    <option value="mixed" selected>安抚和计划都要</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span>身边是否有现实支持</span>
+                  <select id="intake-support" name="support" required>
+                    <option value="yes">有，可以联系到人</option>
+                    <option value="limited" selected>有一点，但不稳定</option>
+                    <option value="no">没有，基本靠自己</option>
+                  </select>
+                </label>
+              </div>
+
+              <button class="primary-btn intake-submit" type="submit">建立对话画像</button>
+            </form>
+
+            <div id="intake-summary" class="intake-summary muted-card">
+              <p class="summary-title">尚未建立画像</p>
+              <p>完成上面的 4 项信息后，系统会调整疏导语气、提问顺序和行动建议颗粒度。</p>
+            </div>
+          </section>
+
+          <section class="panel chat-panel">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Step 2</p>
+                <h2>疏导对话</h2>
+              </div>
+              <p>系统会优先参考你的快速画像，再结合实时表达内容进行回复。</p>
+            </div>
+
+            <div class="chat-toolbar">
+              <button class="ghost-chip" type="button" data-prompt="我最怕的是考试结果不好，最近脑子一直停不下来。">考试焦虑</button>
+              <button class="ghost-chip" type="button" data-prompt="我知道自己该学什么，但就是开始不了。">无法启动</button>
+              <button class="ghost-chip" type="button" data-prompt="我最近睡不好，越累越学不进去。">睡眠失衡</button>
+            </div>
+
+            <div id="chat-feed" class="chat-feed" aria-live="polite">
+              <article class="message assistant">
+                <div class="message-meta">
+                  <span>MindBell</span>
+                  <span>系统开场</span>
+                </div>
+                <div class="message-bubble">
+                  先完成上面的快速信息收集会更好。如果你已经填好了，现在可以直接告诉我：此刻最卡住你的那件事是什么。
+                </div>
+              </article>
+            </div>
+
+            <form id="chat-form" class="chat-form">
+              <label class="field">
+                <span>输入你的近况、担心或想法</span>
+                <textarea
+                  id="chat-input"
+                  name="message"
+                  rows="4"
+                  placeholder="例如：我总觉得自己复习不完，越想越紧张，晚上也睡不好。"
+                  required
+                ></textarea>
+              </label>
+              <div class="chat-actions">
+                <p id="chat-status" class="status-note">建议先建立对话画像，再开始正式聊天。</p>
+                <button class="primary-btn" type="submit">发送消息</button>
+              </div>
+            </form>
+            <p class="plain-tip chat-tip">Enter 发送，Shift + Enter 换行</p>
+          </section>
+
+          <section class="panel form-panel">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Step 3</p>
+                <h2>详细状态评估</h2>
+              </div>
+              <p>这是更完整的量化评估，适合需要报告、趋势和更细颗粒建议的场景。</p>
+            </div>
+
+            <form id="assessment-form">
+              <section class="form-block">
+                <div class="block-title">
+                  <h3>基础信息</h3>
+                  <span>用于识别当前备考背景和风险权重</span>
+                </div>
+
+                <div class="metrics-grid">
+                  <label class="field">
+                    <span>年龄</span>
+                    <input id="age" name="age" type="number" min="15" max="35" value="20" required />
+                  </label>
+
+                  <label class="field">
+                    <span>学习/工作状态</span>
+                    <select id="status" name="status">
+                      <option value="freshman">大一/高中升学阶段</option>
+                      <option value="undergraduate" selected>本科在读</option>
+                      <option value="postgraduate">考研/研究生</option>
+                      <option value="intern">实习与备考并行</option>
+                      <option value="working">在职/工作备考</option>
+                    </select>
+                  </label>
+                </div>
+              </section>
+
+              <section class="form-block">
+                <div class="block-title">
+                  <h3>焦虑自评问卷</h3>
+                  <span>4 个分组，10 个核心题项</span>
+                </div>
+                <div id="questions" class="questions"></div>
+              </section>
+
+              <section class="form-block">
+                <div class="block-title">
+                  <h3>判断题</h3>
+                  <span>补足回避、比较和现实支持情况</span>
+                </div>
+                <div class="binary-grid">
+                  <fieldset class="choice-card">
+                    <legend>近一周你是否因为压力过大而临时逃避复习？</legend>
+                    <label><input type="radio" name="avoidance" value="yes" required /> 是</label>
+                    <label><input type="radio" name="avoidance" value="no" /> 否</label>
+                  </fieldset>
+
+                  <fieldset class="choice-card">
+                    <legend>你是否会因与同龄人比较成绩或进度而更紧张？</legend>
+                    <label><input type="radio" name="comparison" value="yes" required /> 是</label>
+                    <label><input type="radio" name="comparison" value="no" /> 否</label>
+                  </fieldset>
+
+                  <fieldset class="choice-card">
+                    <legend>你近期是否能从家人、同学或老师那里得到支持？</legend>
+                    <label><input type="radio" name="support" value="yes" required /> 是</label>
+                    <label><input type="radio" name="support" value="no" /> 否</label>
+                  </fieldset>
+                </div>
+              </section>
+
+              <section class="form-block">
+                <div class="block-title">
+                  <h3>多选题</h3>
+                  <span>选出目前最明显的压力来源</span>
+                </div>
+                <fieldset class="checkbox-panel">
+                  <legend>你的压力主要来自哪些方面？</legend>
+                  <label><input type="checkbox" name="stressors" value="exam" /> 考试成绩和排名</label>
+                  <label><input type="checkbox" name="stressors" value="unfinished" /> 复习内容未完成</label>
+                  <label><input type="checkbox" name="stressors" value="sleep" /> 作息混乱或睡眠不足</label>
+                  <label><input type="checkbox" name="stressors" value="internship" /> 实习/工作与备考冲突</label>
+                  <label><input type="checkbox" name="stressors" value="family" /> 家庭期待或外界压力</label>
+                  <label><input type="checkbox" name="stressors" value="future" /> 对未来不确定</label>
+                </fieldset>
+              </section>
+
+              <section class="form-block">
+                <div class="block-title">
+                  <h3>补充信息</h3>
+                  <span>用于进一步细化策略</span>
+                </div>
+
+                <label class="field">
+                  <span>最近的压力描述</span>
+                  <textarea
+                    id="stress-text"
+                    name="stressText"
+                    rows="5"
+                    placeholder="例如：我担心复习不完，晚上睡前会反复想考试安排。"
+                  ></textarea>
+                </label>
+
+                <div class="metrics-grid">
+                  <label class="field">
+                    <span>日均有效学习时长</span>
+                    <select id="study-hours" name="studyHours">
+                      <option value="1">低于 2 小时</option>
+                      <option value="2">2 - 4 小时</option>
+                      <option value="3" selected>4 - 6 小时</option>
+                      <option value="4">6 - 8 小时</option>
+                      <option value="5">8 小时以上</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span>近期作息规律程度</span>
+                    <select id="schedule-score" name="scheduleScore">
+                      <option value="1">非常混乱</option>
+                      <option value="2">较不规律</option>
+                      <option value="3" selected>一般</option>
+                      <option value="4">比较规律</option>
+                      <option value="5">非常规律</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span>备考任务完成率</span>
+                    <select id="task-score" name="taskScore">
+                      <option value="1">低于 20%</option>
+                      <option value="2">20% - 40%</option>
+                      <option value="3" selected>40% - 60%</option>
+                      <option value="4">60% - 80%</option>
+                      <option value="5">80% 以上</option>
+                    </select>
+                  </label>
+
+                  <label class="field">
+                    <span>对考试结果的担忧程度</span>
+                    <select id="fear-score" name="fearScore">
+                      <option value="1">几乎不担心</option>
+                      <option value="2">偶尔担心</option>
+                      <option value="3" selected>有些担心</option>
+                      <option value="4">经常担心</option>
+                      <option value="5">持续强烈担心</option>
+                    </select>
+                  </label>
+                </div>
+              </section>
+
+              <button class="primary-btn" type="submit">生成评估结果</button>
+            </form>
+          </section>
+        </section>
+
+        <aside class="side-column">
+          <section class="panel result-panel">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Step 4</p>
+                <h2>评估结果</h2>
+              </div>
+              <p>在不增加过多视觉噪音的前提下，保留最有价值的结果与行动建议。</p>
+            </div>
+
+            <div id="result" class="result-card placeholder">
+              <p class="empty-title">等待分析</p>
+              <p>完成详细评估后，这里会显示压力等级、关键诱因和行动建议。</p>
+            </div>
+          </section>
+
+          <section class="panel mini-panel">
+            <div class="block-title">
+              <h3>策略分层</h3>
+            </div>
+            <ul class="feature-list">
+              <li>低强度：先澄清问题，再给轻量建议</li>
+              <li>中强度：兼顾安抚、拆解和节奏调整</li>
+              <li>高强度：减少信息负担，优先稳定与支持</li>
+            </ul>
+          </section>
+
+          <section class="panel mini-panel summary-panel">
+            <div class="block-title">
+              <h3>对话摘要图标</h3>
+              <span>根据已经使用过的对话内容自动统计</span>
+            </div>
+            <div id="conversation-overview" class="insight-overview">
+              <article class="overview-card">
+                <span>累计用户消息</span>
+                <strong>0</strong>
+              </article>
+              <article class="overview-card">
+                <span>当前最高频主题</span>
+                <strong>待生成</strong>
+              </article>
+            </div>
+            <div id="conversation-insights" class="insight-grid">
+              <article class="insight-card">
+                <div class="insight-icon">◎</div>
+                <div>
+                  <strong>暂无对话数据</strong>
+                  <p>开始聊天后，这里会总结常见困扰与风险信号。</p>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="panel mini-panel">
+            <div class="block-title">
+              <h3>安全说明</h3>
+            </div>
+            <p class="privacy-note">
+              本系统适合作为比赛展示与陪伴辅助，不替代医生、心理咨询师或危机干预服务。
+              若出现自伤、自杀想法或持续崩溃感，请立即联系身边可信任的人和专业机构。
+            </p>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="./mental-health-model.js"></script>
+    <script src="./intent-model.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
