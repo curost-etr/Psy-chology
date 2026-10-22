@@ -9,6 +9,23 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+// Allow only explicitly listed website origins; do not expose Ollama itself.
+const chatOrigins = new Set((process.env.CHAT_ALLOWED_ORIGINS || '').split(',').map(value => value.trim()).filter(Boolean));
+app.use('/api/chat', (req, res, next) => {
+  const origin = req.get('Origin');
+  const sameOrigin = origin === `${req.protocol}://${req.get('host')}`;
+  if (origin && !sameOrigin && !chatOrigins.has(origin)) {
+    return res.status(403).json({ ok: false, error: '当前网页域名未获允许，请配置后端 CHAT_ALLOWED_ORIGINS。' });
+  }
+  if (origin && chatOrigins.has(origin)) {
+    res.set('Access-Control-Allow-Origin', origin);
+    res.vary('Origin');
+    res.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+  }
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
 app.post('/api/chat', chat);
 
 const questions = [

@@ -1241,11 +1241,22 @@ async function getMentalModelSignal(message) {
 }
 
 async function requestServerChat(message) {
+  const configuredBase = String(window.MindBellChatConfig?.apiBaseUrl || "").trim().replace(/\/+$/, "");
+  if (!configuredBase && location.hostname.endsWith("github.io")) {
+    const error = new Error("Missing chat backend");
+    error.userMessage = "GitHub Pages 尚未配置对话后端地址，请配置 chat-config.js 中的 apiBaseUrl。";
+    throw error;
+  }
+  if (configuredBase && !/^https:\/\//i.test(configuredBase)) {
+    const error = new Error("HTTPS backend required");
+    error.userMessage = "对话后端地址必须使用 HTTPS。";
+    throw error;
+  }
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), 190000);
 
   try {
-    const response = await fetch("/api/chat", {
+    const response = await fetch(`${configuredBase}/api/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
