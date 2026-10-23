@@ -1241,7 +1241,8 @@ async function getMentalModelSignal(message) {
 }
 
 async function requestServerChat(message) {
-  const configuredBase = String(window.MindBellChatConfig?.apiBaseUrl || "").trim().replace(/\/+$/, "");
+  const isLocalServer = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname) && location.port === "3000";
+  const configuredBase = isLocalServer ? "" : String(window.MindBellChatConfig?.apiBaseUrl || "").trim().replace(/\/+$/, "");
   if (!configuredBase && location.hostname.endsWith("github.io")) {
     const error = new Error("Missing chat backend");
     error.userMessage = "GitHub Pages 尚未配置对话后端地址，请配置 chat-config.js 中的 apiBaseUrl。";
