@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 if (fs.existsSync(path.join(__dirname, '.env'))) process.loadEnvFile(path.join(__dirname, '.env'));
 const { chat } = require('./ollama-chat');
+const { ensureOllama } = require('./start-ollama');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -120,6 +121,18 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`服务已启动：http://localhost:${PORT}`);
-});
+async function start() {
+  try {
+    await ensureOllama();
+  } catch (error) {
+    console.warn(`Ollama 启动提示：${error.message} 网站仍可使用本地兜底回复。`);
+  }
+  const server = app.listen(PORT, () => {
+    console.log(`服务已启动：http://localhost:${PORT}`);
+  });
+  server.on('error', error => {
+    console.error(error.code === 'EADDRINUSE' ? `端口 ${PORT} 已被占用，请先停止旧项目服务。` : `网站启动失败：${error.message}`);
+    process.exitCode = 1;
+  });
+}
+start();
