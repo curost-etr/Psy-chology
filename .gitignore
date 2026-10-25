@@ -19,3 +19,6 @@ report-assets/chrome-profile*/
 node_modules/
 server-output.log
 server-error.log
+backend.*.log
+ollama.*.log
+tunnel.*.log
