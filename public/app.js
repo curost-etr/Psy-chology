@@ -1257,10 +1257,10 @@ async function requestServerChat(message) {
   const timeoutId = setTimeout(() => controller.abort(), 190000);
 
   try {
-    const response = await fetch(`${configuredBase}/api/chat`, {
+    const requestOptions = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "text/plain;charset=UTF-8"
       },
       body: JSON.stringify({
         message,
@@ -1269,7 +1269,25 @@ async function requestServerChat(message) {
         intake: latestIntake
       }),
       signal: controller.signal
-    });
+    };
+    let response;
+    for (let attempt = 0; attempt < 2; attempt += 1) {
+      try {
+        response = await fetch(`${configuredBase}/api/chat`, requestOptions);
+        break;
+      } catch (error) {
+        if (controller.signal.aborted || error.name === "AbortError") throw error;
+        if (attempt === 0) {
+          chatStatus.textContent = "模型连接中断，正在重新连接...";
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          continue;
+        }
+        error.userMessage = navigator.onLine === false
+          ? "设备当前处于离线状态，请连接网络后重试。"
+          : `当前设备无法连接模型后端 ${configuredBase || location.origin}。请尝试切换 Wi-Fi/移动网络，或直接打开下方的模型服务页面。`;
+        throw error;
+      }
+    }
 
     if (!response.ok) {
       const error = new Error(`HTTP ${response.status}`);
@@ -1305,6 +1323,7 @@ async function sendChatMessage(message) {
     chatHistory.push({ role: "assistant", content: data.reply });
     chatStatus.textContent = getChatStatusText(data);
   } catch (serverError) {
+    chatStatus.textContent = getServerChatFailureText(serverError);
     await window.LocalIntentModel?.ready;
     await trainingDataReady;
     const modelSignal = await getMentalModelSignal(message);
@@ -1319,6 +1338,17 @@ async function sendChatMessage(message) {
     appendMessage("assistant", data.reply, getAssistantMeta(data));
     chatHistory.push({ role: "assistant", content: data.reply });
     chatStatus.textContent = `${getChatStatusText(data)} ${getServerChatFailureText(serverError)}`;
+    if (serverError.userMessage || serverError.status) {
+      const base = String(window.MindBellChatConfig?.apiBaseUrl || "").trim();
+      if (/^https:\/\//i.test(base)) {
+        const link = document.createElement("a");
+        link.href = base;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = " 直接打开模型服务页面";
+        chatStatus.appendChild(link);
+      }
+    }
   } finally {
     setSendingState(false);
   }

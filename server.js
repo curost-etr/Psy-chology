@@ -9,6 +9,9 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+// A JSON body sent as text/plain is a CORS simple request, avoiding a separate
+// preflight round trip over the public tunnel. Keep the same origin checks below.
+app.use('/api/chat', express.json({ type: 'text/plain' }));
 app.use(express.static(path.join(__dirname, 'public')));
 // Allow only explicitly listed website origins; do not expose Ollama itself.
 const chatOrigins = new Set((process.env.CHAT_ALLOWED_ORIGINS || '').split(',').map(value => value.trim()).filter(Boolean));
